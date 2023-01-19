@@ -10,7 +10,14 @@ public class CamFollow : MonoBehaviour
 
 
     [SerializeField] private Transform playerObject;
+    
     [SerializeField] private Vector3 camOffset;
+
+    public float camOffsetZ{
+        set{
+            this.camOffset.z = value;  
+	    }
+    }
 
 
     

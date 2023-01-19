@@ -12,25 +12,44 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Animator playerAnimator;
 
+    [SerializeField] private CamFollow camFollow;
 
     private Transform tr;
 
     [SerializeField] private bool isGameStarted = false;
-    
+
     void Start()
     {
         this.tr = transform;
     }
 
-    
+
     void Update()
     {
-        if (isGameStarted){
+        if (isGameStarted)
+        {
+            this.playerAnimator.SetBool("isRunning", true);
             float horizontalMovenment = Input.GetAxis("Horizontal");
             this.tr.position += this.tr.forward * speed * Time.deltaTime;
-            this.tr.Translate(horizontalMovenment * Time.deltaTime * sideMovenmentSpeed, 0, 0); 
-         }
-       
-	}
+            this.tr.Translate(horizontalMovenment * Time.deltaTime * sideMovenmentSpeed, 0, 0);
+        }
+    }
 
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Finish")
+        {
+            this.playerAnimator.SetBool("isDancing", true);
+            this.isGameStarted = false;
+        }
+        if (other.tag == "Obstacle")
+        {
+            this.isGameStarted = false;
+            this.camFollow.camOffsetZ = -7;
+            this.playerAnimator.SetBool("isFall", true);
+        }
+    }
+    
 }
