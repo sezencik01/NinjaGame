@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject endScreen;
 
+    [SerializeField] private Player player;
 
     void Start()
     {
@@ -18,8 +19,21 @@ public class GameManager : MonoBehaviour
 
    
     public void StartGame(){
-        Debug.Log("Oyun Başladı");
+        startScreen.SetActive(false);
+	player.isGameStarted = true;
     }
         
+
+    public void EndGame(){
+        
+        endScreen.SetActive(true);
+    
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+    }
 }
 
